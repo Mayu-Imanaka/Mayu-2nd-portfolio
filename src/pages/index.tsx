@@ -17,10 +17,22 @@ import { formatDate } from '../utils/date'
         </li>
       ))}
      </ul>
+     <Link to="/blogs/">もっとみる</Link>
     </main>
   )
 }
 
-// export default IndexPage
+export const query = graphql`
+  query IndexPage {
+    allMicrocmsBlogs(limit: 3, sort: { order : DESC, fields: publishedAt }) {
+      nodes {
+        blogsId
+        title
+        publishedAt
+        revisedAt
+      }
+    }
+  }
+`
 
 export const Head: HeadFC = () => <title>Home Page</title>
