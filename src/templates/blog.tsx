@@ -14,7 +14,7 @@ type PageContext = {
 
 export default function BlogPage({
   data,
-  pageCotext: { next, previous },
+  pageContext: { next, previous },
   location
 }: PageProps<Queries.BlogPageQuery, PageContext>){
   const { microcmsBlogs } = data

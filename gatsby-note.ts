@@ -1,5 +1,6 @@
 import { GatsbyNode } from 'gatsby'
 import path from 'path'
+import { getPagesContext } from './src/utils/page'
 
 export const createPage: GatsbyNode['createPages'] = async ({ graphql, actions: { createPage } }) => {
   const result = await graphql<Queries.CreatePagesQuery>(`
@@ -26,7 +27,7 @@ export const createPage: GatsbyNode['createPages'] = async ({ graphql, actions: 
     throw result.errors
   }
 
-  const { allMicrocmsBlogs } = result.data!
+  const { allMicrocmsBlogs: {totalCount, edges} } = result.data!
 
   allMicrocmsBlogs.edges.forEach((edge) => {
     createPage({
@@ -41,4 +42,28 @@ export const createPage: GatsbyNode['createPages'] = async ({ graphql, actions: 
       }
     })
   })
+
+const pagesContext = getPagesContext({
+  totalCount,
+  limit: 10 //１ページあたり10コンテンツを表示させる
+})
+
+pagesContext.forEach((context) => {
+  const component = path.resolve('src/templates/blogs.tsx')
+
+  if(context.currentPageNum === 1){
+    createPage({
+      path: `/blogs/`,
+      component,
+      context
+    })
+    return
+  }
+
+  createPage({
+    path: `/blogs/page/${context.currentPageNum}/`,
+    component,
+    context
+  })
+})
 }
