@@ -3,7 +3,6 @@ import { graphql, Link, HeadFC, PageProps } from "gatsby"
 import { formatDate } from '../utils/date'
 
 
-// const IndexPage: React.FC<PageProps> = ({data}) => {
   export default function IndexPage({ data }: PageProps<Queries.IndexPageQuery>) {
   const { allMicrocmsBlogs } = data
   return (
@@ -24,7 +23,7 @@ import { formatDate } from '../utils/date'
 
 export const query = graphql`
   query IndexPage {
-    allMicrocmsBlogs(limit: 3, sort: { order : DESC, fields: publishedAt }) {
+    allMicrocmsBlogs(limit: 3, sort: { publishedAt:DESC }) {
       nodes {
         blogsId
         title
