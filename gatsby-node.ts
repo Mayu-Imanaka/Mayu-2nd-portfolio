@@ -2,7 +2,7 @@ import { GatsbyNode } from 'gatsby'
 import path from 'path'
 import { getPagesContext } from './src/utils/page'
 
-export const createPage: GatsbyNode['createPages'] = async ({ graphql, actions: { createPage } }) => {
+export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions: { createPage } }) => {
   const result = await graphql<Queries.CreatePagesQuery>(`
   query CreatePages { 
     allMicrocmsBlogs(sort: { order: ASC, fields: publishedAt }) {

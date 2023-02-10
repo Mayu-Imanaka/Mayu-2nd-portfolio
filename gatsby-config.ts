@@ -27,8 +27,8 @@ const config: GatsbyConfig = {
 ,{
   resolve: 'gatsby-source-microcms',
   options: {
-    apiKey: process.env.MICROCMS_API_KEY,
-    serviceId: process.env.MICROCMS_SERVICE_ID,
+    apiKey: 'eqozQc22Evt6Ow81OnN80RI9T293wjiFi4Yh',
+    serviceId: 'mayuimanakaportfolio',
     apis: [
       {
         endpoint:'blogs',
