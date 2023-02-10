@@ -5,7 +5,7 @@ import { getPagesContext } from './src/utils/page'
 export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions: { createPage } }) => {
   const result = await graphql<Queries.CreatePagesQuery>(`
   query CreatePages { 
-    allMicrocmsBlogs(sort: { order: ASC, fields: publishedAt }) {
+    allMicrocmsBlogs(sort: {publishedAt: ASC}) {
       edges {
         node {
           blogsId
