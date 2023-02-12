@@ -19,6 +19,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions:
           title
         }
       }
+      totalCount
     }
   }
   `)
@@ -27,43 +28,45 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions:
     throw result.errors
   }
 
-  const { allMicrocmsBlogs: {totalCount, edges} } = result.data!
+  const { allMicrocmsBlogs } = result.data!
 
   allMicrocmsBlogs.edges.forEach((edge) => {
     createPage({
+      // 生成したいページのpathを記載します。
       path: `/blog/${edge.node.blogsId}/`,
-
+      // ページの土台となるコンポーネントのパスを記述します。
       component: path.resolve('src/templates/blog.tsx'),
-
+      // コンポーネントの`pageContext`という引数情報に渡すデータを格納します。
+      // pageContextに渡した値は、templateのGraphQL内で変数として利用できます。
       context: {
         id: edge.node.blogsId,
-        next:edge.next,
+        next: edge.next,
         previous: edge.previous
       }
     })
   })
 
-const pagesContext = getPagesContext({
-  totalCount,
-  limit: 10 //１ページあたり10コンテンツを表示させる
-})
+// const pagesContext = getPagesContext({
+//   totalCount,
+//   limit: 10 //１ページあたり10コンテンツを表示させる
+// })
 
-pagesContext.forEach((context) => {
-  const component = path.resolve('src/templates/blogs.tsx')
+// pagesContext.forEach((context) => {
+//   const component = path.resolve('src/templates/blogs.tsx')
 
-  if(context.currentPageNum === 1){
-    createPage({
-      path: `/blogs/`,
-      component,
-      context
-    })
-    return
-  }
+//   if(context.currentPageNum === 1){
+//     createPage({
+//       path: `/blogs/`,
+//       component,
+//       context
+//     })
+//     return
+//   }
 
-  createPage({
-    path: `/blogs/page/${context.currentPageNum}/`,
-    component,
-    context
-  })
-})
+//   createPage({
+//     path: `/blogs/page/${context.currentPageNum}/`,
+//     component,
+//     context
+//   })
+// })
 }
