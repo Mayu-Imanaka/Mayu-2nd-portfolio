@@ -10,13 +10,14 @@ import { formatDate } from '../utils/date'
      <ul>
       {allMicrocmsBlogs.nodes.map(node => (
         <li key={node.blogsId}>
-          <Link to={`/blogs/${node.blogsId}/`}>
+          <Link to={`/blog/${node.blogsId}/`}>
           {node.title}【公開日：{formatDate(node.publishedAt!)}】
           </Link>
+          <img src={node.image} alt="" />
         </li>
       ))}
      </ul>
-     <Link to="/blogs/">もっとみる</Link>
+     <Link to="/blog/">もっとみる</Link>
     </main>
   )
 }
