@@ -38,7 +38,22 @@ const config: GatsbyConfig = {
       }
     ]
   }
-}]
+},
+{
+  resolve: `@imgix/gatsby`,
+  options: {
+    domain: 'images.microcms-assets.io',
+    defaultImgixParams: { auto: 'format,compress' },
+    fields: [
+      {
+        nodeType: "McirocmsBlogEyecatch",
+        fieldName: "imgixImage",
+        getURL: node => node.url.replace("https://images.microcms-assets.io/", "")
+      },
+    ],
+  },
+},
+],
 };
 
 export default config;
